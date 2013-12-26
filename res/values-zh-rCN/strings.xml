@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">手电筒</string>
+    <string name="again_exit">再按一次退出</string>
+    <string name="change_theme">更换为</string>
+</resources>
