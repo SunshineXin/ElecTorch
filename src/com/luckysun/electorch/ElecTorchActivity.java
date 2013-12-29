@@ -2,15 +2,6 @@ package com.luckysun.electorch;
 
 import java.io.IOException;
 
-import cn.domob.android.ads.DomobAdEventListener;
-import cn.domob.android.ads.DomobAdView;
-import cn.domob.android.ads.DomobUpdater;
-import cn.domob.android.ads.DomobAdManager.ErrorCode;
-
-import com.luckysun.electorch.R;
-import com.luckysun.electorch.menu.MenuActivity;
-import com.umeng.analytics.MobclickAgent;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +10,6 @@ import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -29,6 +19,13 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import cn.domob.android.ads.DomobAdEventListener;
+import cn.domob.android.ads.DomobAdManager.ErrorCode;
+import cn.domob.android.ads.DomobAdView;
+import cn.domob.android.ads.DomobUpdater;
+
+import com.luckysun.electorch.menu.MenuActivity;
+import com.umeng.analytics.MobclickAgent;
 
 public class ElecTorchActivity extends Activity {
 	public static final String PUBLISHER_ID = "56OJzfGouNVdQNNTvf";
@@ -44,10 +41,10 @@ public class ElecTorchActivity extends Activity {
 	private Button lightBtn = null;
 	private Camera camera = null;
 	private Parameters parameters = null;
-	public static boolean kaiguan = true; // ¶¨Òå¿ª¹Ø×´Ì¬£¬×´Ì¬Îªfalse£¬´ò¿ª×´Ì¬£¬×´Ì¬Îªtrue£¬¹Ø±Õ×´Ì¬
+	public static boolean kaiguan = true; // ï¿½ï¿½ï¿½å¿ªï¿½ï¿½×´Ì¬ï¿½ï¿½×´Ì¬Îªfalseï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½×´Ì¬Îªtrueï¿½ï¿½ï¿½Ø±ï¿½×´Ì¬
 	// public static boolean action = false;
-	// //¶¨ÒåµÄ×´Ì¬£¬×´Ì¬Îªfalse£¬µ±Ç°½çÃæ²»ÍË³ö£¬×´Ì¬Îªtrue£¬µ±Ç°½çÃæÍË³ö
-	private int back = 0;// ÅÐ¶Ï°´¼¸´Îback
+	// //ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½×´Ì¬Îªfalseï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½æ²»ï¿½Ë³ï¿½ï¿½ï¿½×´Ì¬Îªtrueï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½
+	private int back = 0;// ï¿½Ð¶Ï°ï¿½ï¿½ï¿½ï¿½ï¿½back
 
 	private OnClickListener mImageViewListener = null;
 
@@ -64,22 +61,22 @@ public class ElecTorchActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// È«ÆÁÉèÖÃ£¬Òþ²Ø´°¿ÚËùÓÐ×°ÊÎ
+		// È«ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		requestWindowFeature(Window.FEATURE_NO_TITLE); // ÉèÖÃÆÁÄ»ÏÔÊ¾ÎÞ±êÌâ£¬±ØÐëÆô¶¯¾ÍÒªÉèÖÃºÃ£¬·ñÔò²»ÄÜÔÙ´Î±»ÉèÖÃ
+		requestWindowFeature(Window.FEATURE_NO_TITLE); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½Ê¾ï¿½Þ±ï¿½ï¿½â£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ÃºÃ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù´Î±ï¿½ï¿½ï¿½ï¿½ï¿½
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
 				WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
 				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.main);
 
-		//ÓÑÃËÊý¾ÝÍ³¼Æ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í³ï¿½ï¿½
 		MobclickAgent.onEventBegin(this, "flshlight_on");
 		
 		DomobUpdater.checkUpdate(this, PUBLISHER_ID);
 		mAdContainer = (RelativeLayout) findViewById(R.id.adcontainer);
-		// ´´½¨Ò»¸ö320x50µÄ¹ã¸æView
+		// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½320x50ï¿½Ä¹ï¿½ï¿½View
 		mAdview320x50 = new DomobAdView(this, ElecTorchActivity.PUBLISHER_ID,
 				DomobAdView.INLINE_SIZE_320X50);
 //		mAdview320x50.setKeyword("game");
@@ -87,59 +84,59 @@ public class ElecTorchActivity extends Activity {
 //		mAdview320x50.setUserBirthdayStr("2000-08-08");
 //		mAdview320x50.setUserPostcode("123456");
 
-		// ÉèÖÃ¹ã¸æviewµÄ¼àÌýÆ÷¡£
+		// ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½viewï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		mAdview320x50.setAdEventListener(new DomobAdEventListener() {
 
 			@Override
-			// ³É¹¦½ÓÊÕµ½¹ã¸æ·µ»Ø»Øµ÷
+			// ï¿½É¹ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½æ·µï¿½Ø»Øµï¿½
 			public void onDomobAdReturned(DomobAdView adView) {
 				// TODO Auto-generated method stub
 				Log.i("DomobSDKDemo", "onDomobAdReturned");
 			}
 
 			@Override
-			// Landing Page³É¹¦´ò¿ª»Øµ÷
+			// Landing Pageï¿½É¹ï¿½ï¿½ò¿ª»Øµï¿½
 			public void onDomobAdOverlayPresented(DomobAdView adView) {
 				// TODO Auto-generated method stub
 				Log.i("DomobSDKDemo", "overlayPresented");
 			}
 
 			@Override
-			// Landing Page¹Ø±Õ»Øµ÷
+			// Landing Pageï¿½Ø±Õ»Øµï¿½
 			public void onDomobAdOverlayDismissed(DomobAdView adView) {
 				// TODO Auto-generated method stub
 				Log.i("DomobSDKDemo", "Overrided be dismissed");
 			}
 
 			@Override
-			// ¹ã¸æµã»÷»Øµ÷
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½
 			public void onDomobAdClicked(DomobAdView arg0) {
 				// TODO Auto-generated method stub
 				Log.i("DomobSDKDemo", "onDomobAdClicked");
 			}
 
 			@Override
-			// ¹ã¸æÇëÇóÊ§°Ü»Øµ÷
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü»Øµï¿½
 			public void onDomobAdFailed(DomobAdView arg0, ErrorCode arg1) {
 				// TODO Auto-generated method stub
 				Log.i("DomobSDKDemo", "onDomobAdFailed");
 			}
 
 			@Override
-			// Àë¿ªÓ¦ÓÃ»Øµ÷
+			// ï¿½ë¿ªÓ¦ï¿½Ã»Øµï¿½
 			public void onDomobLeaveApplication(DomobAdView arg0) {
 				// TODO Auto-generated method stub
 				Log.i("DomobSDKDemo", "onDomobLeaveApplication");
 			}
 
 			@Override
-			// ·µ»Øµ±Ç°µÄContext
+			// ï¿½ï¿½ï¿½Øµï¿½Ç°ï¿½ï¿½Context
 			public Context onDomobAdRequiresCurrentContext() {
 				// TODO Auto-generated method stub
 				return ElecTorchActivity.this;
 			}
 		});
-		// ½«¹ã¸æViewÔö¼Óµ½ÊÓÍ¼ÖÐ¡£
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Viewï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½Í¼ï¿½Ð¡ï¿½
 //		mAdContainer.addView(mAdview320x50);
 		
 		SharedPreferences sp = getSharedPreferences("sunflashlight",Activity.MODE_PRIVATE);
@@ -296,37 +293,28 @@ public class ElecTorchActivity extends Activity {
 		 MobclickAgent.onResume(this);
 	}
 
+	long mExitTime;
+	
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			back++;
-			switch (back) {
-			case 1:
-				Toast.makeText(ElecTorchActivity.this,
-						getString(R.string.again_exit), Toast.LENGTH_SHORT)
-						.show();
-				break;
-			case 2:
-				back = 0;
-				Myback();
-				break;
-			}
-			return true;
+	public void onBackPressed() {
+		if ((System.currentTimeMillis() - mExitTime) > 2000) {
+			Toast.makeText(this, R.string.again_exit, Toast.LENGTH_SHORT).show();
+			mExitTime = System.currentTimeMillis();
 		} else {
-			return super.onKeyDown(keyCode, event);
+			Myback();
 		}
 		
 	}
-
-	public void Myback() { // ¹Ø±Õ³ÌÐò
-		if (kaiguan) {// ¿ª¹Ø¹Ø±ÕÊ±
+	
+	public void Myback() { // ï¿½Ø±Õ³ï¿½ï¿½ï¿½
+		if (kaiguan) {// ï¿½ï¿½ï¿½Ø¹Ø±ï¿½Ê±
 			ElecTorchActivity.this.finish();
-			android.os.Process.killProcess(android.os.Process.myPid());// ¹Ø±Õ½ø³Ì
-		} else if (!kaiguan) {// ¿ª¹Ø´ò¿ªÊ±
+			android.os.Process.killProcess(android.os.Process.myPid());// ï¿½Ø±Õ½ï¿½ï¿½
+		} else if (!kaiguan) {// ï¿½ï¿½ï¿½Ø´ï¿½Ê±
 			camera.release();
 			ElecTorchActivity.this.finish();
-			android.os.Process.killProcess(android.os.Process.myPid());// ¹Ø±Õ½ø³Ì
-			kaiguan = true;// ±ÜÃâ£¬´ò¿ª¿ª¹ØºóÍË³ö³ÌÐò£¬ÔÙ´Î½øÈë²»´ò¿ª¿ª¹ØÖ±½ÓÍË³öÊ±£¬³ÌÐò´íÎó
+			android.os.Process.killProcess(android.os.Process.myPid());// ï¿½Ø±Õ½ï¿½ï¿½
+			kaiguan = true;// ï¿½ï¿½ï¿½â£¬ï¿½ò¿ª¿ï¿½ï¿½Øºï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù´Î½ï¿½ï¿½ë²»ï¿½ò¿ª¿ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½Ë³ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 }

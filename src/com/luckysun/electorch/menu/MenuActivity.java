@@ -52,10 +52,10 @@ public class MenuActivity extends Activity implements OnItemSelectedListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// È«ÆÁÉèÖÃ£¬Òþ²Ø´°¿ÚËùÓÐ×°ÊÎ
+		// È«ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		requestWindowFeature(Window.FEATURE_NO_TITLE); // ÉèÖÃÆÁÄ»ÏÔÊ¾ÎÞ±êÌâ£¬±ØÐëÆô¶¯¾ÍÒªÉèÖÃºÃ£¬·ñÔò²»ÄÜÔÙ´Î±»ÉèÖÃ
+		requestWindowFeature(Window.FEATURE_NO_TITLE); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½Ê¾ï¿½Þ±ï¿½ï¿½â£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ÃºÃ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù´Î±ï¿½ï¿½ï¿½ï¿½ï¿½
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
 				WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
@@ -80,7 +80,7 @@ public class MenuActivity extends Activity implements OnItemSelectedListener,
 		});
 		
 		mAdContainer = (RelativeLayout) findViewById(R.id.adcontainer);
-		// ´´½¨Ò»¸ö320x50µÄ¹ã¸æView
+		// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½320x50ï¿½Ä¹ï¿½ï¿½View
 		mAdview320x50 = new DomobAdView(this, ElecTorchActivity.PUBLISHER_ID,
 				DomobAdView.INLINE_SIZE_320X50);
 //		mAdview320x50.setKeyword("game");
@@ -88,59 +88,59 @@ public class MenuActivity extends Activity implements OnItemSelectedListener,
 //		mAdview320x50.setUserBirthdayStr("2000-08-08");
 //		mAdview320x50.setUserPostcode("123456");
 
-		// ÉèÖÃ¹ã¸æviewµÄ¼àÌýÆ÷¡£
+		// ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½viewï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		mAdview320x50.setAdEventListener(new DomobAdEventListener() {
 
 			@Override
-			// ³É¹¦½ÓÊÕµ½¹ã¸æ·µ»Ø»Øµ÷
+			// ï¿½É¹ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½æ·µï¿½Ø»Øµï¿½
 			public void onDomobAdReturned(DomobAdView adView) {
 				// TODO Auto-generated method stub
 				Log.i("DomobSDKDemo", "onDomobAdReturned");
 			}
 
 			@Override
-			// Landing Page³É¹¦´ò¿ª»Øµ÷
+			// Landing Pageï¿½É¹ï¿½ï¿½ò¿ª»Øµï¿½
 			public void onDomobAdOverlayPresented(DomobAdView adView) {
 				// TODO Auto-generated method stub
 				Log.i("DomobSDKDemo", "overlayPresented");
 			}
 
 			@Override
-			// Landing Page¹Ø±Õ»Øµ÷
+			// Landing Pageï¿½Ø±Õ»Øµï¿½
 			public void onDomobAdOverlayDismissed(DomobAdView adView) {
 				// TODO Auto-generated method stub
 				Log.i("DomobSDKDemo", "Overrided be dismissed");
 			}
 
 			@Override
-			// ¹ã¸æµã»÷»Øµ÷
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½
 			public void onDomobAdClicked(DomobAdView arg0) {
 				// TODO Auto-generated method stub
 				Log.i("DomobSDKDemo", "onDomobAdClicked");
 			}
 
 			@Override
-			// ¹ã¸æÇëÇóÊ§°Ü»Øµ÷
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü»Øµï¿½
 			public void onDomobAdFailed(DomobAdView arg0, ErrorCode arg1) {
 				// TODO Auto-generated method stub
 				Log.i("DomobSDKDemo", "onDomobAdFailed");
 			}
 
 			@Override
-			// Àë¿ªÓ¦ÓÃ»Øµ÷
+			// ï¿½ë¿ªÓ¦ï¿½Ã»Øµï¿½
 			public void onDomobLeaveApplication(DomobAdView arg0) {
 				// TODO Auto-generated method stub
 				Log.i("DomobSDKDemo", "onDomobLeaveApplication");
 			}
 
 			@Override
-			// ·µ»Øµ±Ç°µÄContext
+			// ï¿½ï¿½ï¿½Øµï¿½Ç°ï¿½ï¿½Context
 			public Context onDomobAdRequiresCurrentContext() {
 				// TODO Auto-generated method stub
 				return MenuActivity.this;
 			}
 		});
-		// ½«¹ã¸æViewÔö¼Óµ½ÊÓÍ¼ÖÐ¡£
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Viewï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½Í¼ï¿½Ð¡ï¿½
 		mAdContainer.addView(mAdview320x50);
 		
 	}
@@ -179,7 +179,7 @@ public class MenuActivity extends Activity implements OnItemSelectedListener,
 		Intent intent = new Intent(this,ElecTorchActivity.class);
 		this.setResult(position,intent);
 		this.finish();
-		Toast.makeText(getApplicationContext(),getResources().getString(R.string.change_theme) + " £º" + name,
+		Toast.makeText(getApplicationContext(),getResources().getString(R.string.change_theme) + name,
 				Toast.LENGTH_SHORT).show();
 	}
 
