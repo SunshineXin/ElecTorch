@@ -2,4 +2,4 @@
 bin/
 #忽略gen/目录下所有的文件
 gen/
-.settings/
+\.settings/
