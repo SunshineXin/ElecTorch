@@ -74,9 +74,13 @@ public class ElecTorchActivity extends Activity {
 		//�������ͳ��
 		MobclickAgent.onEventBegin(this, "flshlight_on");
 		
+		
+		
+		/**
+		 * Domob ad.
+		 */
 		DomobUpdater.checkUpdate(this, PUBLISHER_ID);
 		mAdContainer = (RelativeLayout) findViewById(R.id.adcontainer);
-		// ����һ��320x50�Ĺ��View
 		mAdview320x50 = new DomobAdView(this, ElecTorchActivity.PUBLISHER_ID,
 				DomobAdView.INLINE_SIZE_320X50);
 //		mAdview320x50.setKeyword("game");
@@ -84,59 +88,43 @@ public class ElecTorchActivity extends Activity {
 //		mAdview320x50.setUserBirthdayStr("2000-08-08");
 //		mAdview320x50.setUserPostcode("123456");
 
-		// ���ù��view�ļ�������
 		mAdview320x50.setAdEventListener(new DomobAdEventListener() {
 
 			@Override
-			// �ɹ����յ���淵�ػص�
 			public void onDomobAdReturned(DomobAdView adView) {
-				// TODO Auto-generated method stub
 				Log.i("DomobSDKDemo", "onDomobAdReturned");
 			}
 
 			@Override
-			// Landing Page�ɹ��򿪻ص�
 			public void onDomobAdOverlayPresented(DomobAdView adView) {
-				// TODO Auto-generated method stub
 				Log.i("DomobSDKDemo", "overlayPresented");
 			}
 
 			@Override
-			// Landing Page�رջص�
 			public void onDomobAdOverlayDismissed(DomobAdView adView) {
-				// TODO Auto-generated method stub
 				Log.i("DomobSDKDemo", "Overrided be dismissed");
 			}
 
 			@Override
-			// ������ص�
 			public void onDomobAdClicked(DomobAdView arg0) {
-				// TODO Auto-generated method stub
 				Log.i("DomobSDKDemo", "onDomobAdClicked");
 			}
 
 			@Override
-			// �������ʧ�ܻص�
 			public void onDomobAdFailed(DomobAdView arg0, ErrorCode arg1) {
-				// TODO Auto-generated method stub
 				Log.i("DomobSDKDemo", "onDomobAdFailed");
 			}
 
 			@Override
-			// �뿪Ӧ�ûص�
 			public void onDomobLeaveApplication(DomobAdView arg0) {
-				// TODO Auto-generated method stub
 				Log.i("DomobSDKDemo", "onDomobLeaveApplication");
 			}
 
 			@Override
-			// ���ص�ǰ��Context
 			public Context onDomobAdRequiresCurrentContext() {
-				// TODO Auto-generated method stub
 				return ElecTorchActivity.this;
 			}
 		});
-		// �����View���ӵ���ͼ�С�
 //		mAdContainer.addView(mAdview320x50);
 		
 		SharedPreferences sp = getSharedPreferences("sunflashlight",Activity.MODE_PRIVATE);
