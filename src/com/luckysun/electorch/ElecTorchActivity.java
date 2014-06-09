@@ -215,6 +215,9 @@ public class ElecTorchActivity extends Activity {
 		return true;
 	}
 
+	
+	
+	
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		int lightid = (int) id;
 
@@ -317,4 +320,16 @@ public class ElecTorchActivity extends Activity {
 			kaiguan = true;// ���⣬�򿪿��غ��˳������ٴν��벻�򿪿���ֱ���˳�ʱ���������
 		}
 	}
+	
+	
+	
+	
+	protected void sleep(long time){
+		try {
+			Thread.sleep(time);
+		} catch (Exception e) {
+			
+		}
+	}
+	
 }
