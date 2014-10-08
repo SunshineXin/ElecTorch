@@ -48,6 +48,8 @@ public class MenuActivity extends Activity implements OnItemSelectedListener,
 	private Button mMenu;
 	RelativeLayout mAdContainer;
 	DomobAdView mAdview320x50;
+	
+	private int mCurrentStyle;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -75,6 +77,8 @@ public class MenuActivity extends Activity implements OnItemSelectedListener,
 		mMenu = (Button) findViewById(R.id.btn_menu);
 		mMenu.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
+				Intent intent = new Intent(MenuActivity.this,ElecTorchActivity.class);
+				MenuActivity.this.setResult(mCurrentStyle,intent);
 				finish();
 			}
 		});
@@ -143,6 +147,9 @@ public class MenuActivity extends Activity implements OnItemSelectedListener,
 		// �����View���ӵ���ͼ�С�
 		mAdContainer.addView(mAdview320x50);
 		
+		SharedPreferences sp = getSharedPreferences("sunflashlight",Activity.MODE_PRIVATE);
+		mCurrentStyle = sp.getInt("style",ElecTorchActivity.MIUI);
+		
 	}
 
 	@Override
@@ -161,6 +168,7 @@ public class MenuActivity extends Activity implements OnItemSelectedListener,
 		
 		Log.e("other", "position = " + position);
 		Log.e("other", "name = " + name);
+		
 		switch (position) {
 		case 0:
 			setStyle(ElecTorchActivity.MIUI);
@@ -179,8 +187,7 @@ public class MenuActivity extends Activity implements OnItemSelectedListener,
 		Intent intent = new Intent(this,ElecTorchActivity.class);
 		this.setResult(position,intent);
 		this.finish();
-		Toast.makeText(getApplicationContext(),getResources().getString(R.string.change_theme) + name,
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(),getResources().getString(R.string.change_theme) + name,Toast.LENGTH_SHORT).show();
 	}
 
 	public void setStyle(int style) {
@@ -188,6 +195,13 @@ public class MenuActivity extends Activity implements OnItemSelectedListener,
 			SharedPreferences.Editor editor = settings.edit();
 			editor.putInt("style", style);
 			editor.commit();
+	}
+	
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent(MenuActivity.this,ElecTorchActivity.class);
+		MenuActivity.this.setResult(mCurrentStyle,intent);
+		super.onBackPressed();
 	}
 
 }

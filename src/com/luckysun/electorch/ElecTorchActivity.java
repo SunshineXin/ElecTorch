@@ -10,13 +10,14 @@ import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.SurfaceHolder;
+import android.view.SurfaceHolder.Callback;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import cn.domob.android.ads.DomobAdEventListener;
@@ -41,48 +42,43 @@ public class ElecTorchActivity extends Activity {
 	private Button lightBtn = null;
 	private Camera camera = null;
 	private Parameters parameters = null;
-	public static boolean kaiguan = true; // ���忪��״̬��״̬Ϊfalse����״̬��״̬Ϊtrue���ر�״̬
+	public static boolean kaiguan = true; // 锟斤拷锟藉开锟斤拷状态锟斤拷状态为false锟斤拷锟斤拷状态锟斤拷状态为true锟斤拷锟截憋拷状态
 	// public static boolean action = false;
-	// //�����״̬��״̬Ϊfalse����ǰ���治�˳���״̬Ϊtrue����ǰ�����˳�
-	private int back = 0;// �жϰ�����back
+	// //锟斤拷锟斤拷锟阶刺�锟斤拷状态为false锟斤拷锟斤拷前锟斤拷锟芥不锟剿筹拷锟斤拷状态为true锟斤拷锟斤拷前锟斤拷锟斤拷锟剿筹拷
+	private int back = 0;// 锟叫断帮拷锟斤拷锟斤拷back
 
 	private OnClickListener mImageViewListener = null;
 
 	private Camera mCamera = null;
 	RelativeLayout mAdContainer;
 	DomobAdView mAdview320x50;
-
-	private static final String[] KeyLightOptions = new String[] {
-			"Close Camera LED", "Open CameraLED", };
-	private static final int[] LightValue = new int[] { 0, 1, };
+	SurfaceView surfaceview;
+	SurfaceHolder holder;
+	
+//	private static final String[] KeyLightOptions = new String[] {"Close Camera LED", "Open CameraLED", };
+//	private static final int[] LightValue = new int[] { 0, 1, };
 	
 	private int[] mLightImage ;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// ȫ�����ã����ش�������װ��
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		requestWindowFeature(Window.FEATURE_NO_TITLE); // ������Ļ��ʾ�ޱ��⣬����������Ҫ���úã��������ٴα�����
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,
-				WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
-				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		// 全锟斤拷锟斤拷锟矫ｏ拷锟斤拷锟截达拷锟斤拷锟斤拷锟斤拷装锟斤拷
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		requestWindowFeature(Window.FEATURE_NO_TITLE); // 锟斤拷锟斤拷锟斤拷幕锟斤拷示锟睫憋拷锟解，锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷要锟斤拷锟矫好ｏ拷锟斤拷锟斤拷锟斤拷锟劫次憋拷锟斤拷锟斤拷
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD,WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		setContentView(R.layout.main);
 
-		//�������ͳ��
+		//锟斤拷锟斤拷锟斤拷锟酵筹拷锟�
 		MobclickAgent.onEventBegin(this, "flshlight_on");
-		
-		
 		
 		/**
 		 * Domob ad.
 		 */
 		DomobUpdater.checkUpdate(this, PUBLISHER_ID);
 		mAdContainer = (RelativeLayout) findViewById(R.id.adcontainer);
-		mAdview320x50 = new DomobAdView(this, ElecTorchActivity.PUBLISHER_ID,
-				DomobAdView.INLINE_SIZE_320X50);
+		mAdview320x50 = new DomobAdView(this, ElecTorchActivity.PUBLISHER_ID,DomobAdView.INLINE_SIZE_320X50);
 //		mAdview320x50.setKeyword("game");
 //		mAdview320x50.setUserGender("male");
 //		mAdview320x50.setUserBirthdayStr("2000-08-08");
@@ -125,20 +121,69 @@ public class ElecTorchActivity extends Activity {
 				return ElecTorchActivity.this;
 			}
 		});
+		
 //		mAdContainer.addView(mAdview320x50);
 		
 		SharedPreferences sp = getSharedPreferences("sunflashlight",Activity.MODE_PRIVATE);
 		mCurrentStyle = sp.getInt("style",MIUI);
 		Log.e("other", "mCurrentStyle = " +mCurrentStyle);
-		if (!init()) {
-			finish();
-		}
-
-
+		
+		initSurfaceView();
+	}
+	
+	private void initSurfaceView() {
+		surfaceview = (SurfaceView) findViewById(R.id.surfaceView);
+		surfaceview.setZOrderOnTop(true);
+		surfaceview.setBackgroundColor(-2);
+		holder = surfaceview.getHolder();
+		holder.addCallback(new Callback() {
+			@Override
+			public void surfaceDestroyed(SurfaceHolder holder) {
+			}
+			@Override
+			public void surfaceCreated(SurfaceHolder holder) {
+			}
+			@Override
+			public void surfaceChanged(SurfaceHolder holder, int format, int width,
+					int height) {
+			}
+		});
+		holder.setFormat(-2);
+		
+		
+		lightBtn = (Button) findViewById(R.id.btn_light);
+		mMenu = (Button) findViewById(R.id.btn_menu);
+		getStyle(mCurrentStyle);
+		lightBtn.setBackgroundResource(mLightImage[0]);
+		mMenu.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+				startActivityForResult(new Intent(ElecTorchActivity.this,MenuActivity.class), 1);
+			}
+		});
+		
+		
+		mImageViewListener = new OnClickListener() {
+			public void onClick(View v) {
+				if (mIsOpen) {
+					mIsOpen = false;
+					if(!initCamera()){
+					}
+					setLightValue(0);
+				} else {
+					mIsOpen = true;
+					if(!initCamera()){
+					}
+					setLightValue(1);
+				}
+			}
+		};
+		lightBtn.setOnClickListener(mImageViewListener);
+		
 	}
 
 	
 	public void getStyle(int style){
+		mLightImage = null;
 		switch (style) {
 		case LIGHT:
 			mLightImage = new int[] { R.drawable.bg, R.drawable.bg1 };
@@ -155,31 +200,8 @@ public class ElecTorchActivity extends Activity {
 		}
 	}
 	
-	public boolean init() {
-		lightBtn = (Button) findViewById(R.id.btn_light);
-		mMenu = (Button) findViewById(R.id.btn_menu);
-		getStyle(mCurrentStyle);
-		lightBtn.setBackgroundResource(mLightImage[0]);
-		mMenu.setOnClickListener(new Button.OnClickListener() {
-			public void onClick(View v) {
-				startActivityForResult(new Intent(ElecTorchActivity.this,MenuActivity.class), 1);
-			}
-		});
-		
-		
-		mImageViewListener = new OnClickListener() {
-			public void onClick(View v) {
-				if (mIsOpen) {
-					mIsOpen = false;
-					setLightValue(0);
-				} else {
-					mIsOpen = true;
-					setLightValue(1);
-				}
-			}
-		};
-		lightBtn.setOnClickListener(mImageViewListener);
 
+	private boolean initCamera(){
 		try {
 			mCamera = Camera.open();
 			mCamera.startPreview();
@@ -190,29 +212,29 @@ public class ElecTorchActivity extends Activity {
 			}
 			return false;
 		}
+		
 		try {
-			mCamera.setPreviewDisplay(null);
+			mCamera.setPreviewDisplay(holder);
 		} catch (IOException e) {
 			mCamera.release();
 			mCamera = null;
 			return false;
 		}
-		Camera.Parameters parameters = mCamera.getParameters();
-		parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-		mCamera.setParameters(parameters);
+		
+//		Camera.Parameters parameters = mCamera.getParameters();
+//		parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+//		mCamera.setParameters(parameters);
 		return true;
 	}
-
 	
 	
-	
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		int lightid = (int) id;
-
-		if (lightid >= 0 && lightid < LightValue.length) {
-			setLightValue(LightValue[lightid]);
-		}
-	}
+//	protected void onListItemClick(ListView l, View v, int position, long id) {
+//		int lightid = (int) id;
+//
+//		if (lightid >= 0 && lightid < LightValue.length) {
+//			setLightValue(LightValue[lightid]);
+//		}
+//	}
 
 	void setLightValue(int val) {
 		try {
@@ -232,19 +254,15 @@ public class ElecTorchActivity extends Activity {
 		}
 	}
 
-	private AdapterView.OnItemClickListener mOnClickListener = new AdapterView.OnItemClickListener() {
-		public void onItemClick(AdapterView parent, View v, int position,
-				long id) {
-			onListItemClick((ListView) parent, v, position, id);
-		}
-	};
-
-	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		mCurrentStyle = resultCode;
-
-		init();
 		
+		if(mCurrentStyle != resultCode){
+			mCurrentStyle = resultCode;
+			getStyle(mCurrentStyle);
+			lightBtn.setBackgroundResource(mLightImage[0]);
+		}
+		
+
 		Log.e("other", "onActivityResult");
 		Log.e("other", "resultCode = " +resultCode);
 		Log.e("other", "requestCode = " +requestCode);
@@ -297,26 +315,15 @@ public class ElecTorchActivity extends Activity {
 		
 	}
 	
-	public void Myback() { // �رճ���
-		if (kaiguan) {// ���عر�ʱ
+	public void Myback() { // 锟截闭筹拷锟斤拷
+		if (kaiguan) {// 锟斤拷锟截关憋拷时
 			ElecTorchActivity.this.finish();
-			android.os.Process.killProcess(android.os.Process.myPid());// �رս��
-		} else if (!kaiguan) {// ���ش�ʱ
+			android.os.Process.killProcess(android.os.Process.myPid());// 锟截闭斤拷锟�
+		} else if (!kaiguan) {// 锟斤拷锟截达拷时
 			camera.release();
 			ElecTorchActivity.this.finish();
-			android.os.Process.killProcess(android.os.Process.myPid());// �رս��
-			kaiguan = true;// ���⣬�򿪿��غ��˳������ٴν��벻�򿪿���ֱ���˳�ʱ���������
-		}
-	}
-	
-	
-	
-	
-	protected void sleep(long time){
-		try {
-			Thread.sleep(time);
-		} catch (Exception e) {
-			
+			android.os.Process.killProcess(android.os.Process.myPid());// 锟截闭斤拷锟�
+			kaiguan = true;// 锟斤拷锟解，锟津开匡拷锟截猴拷锟剿筹拷锟斤拷锟斤拷锟劫次斤拷锟诫不锟津开匡拷锟斤拷直锟斤拷锟剿筹拷时锟斤拷锟斤拷锟斤拷锟斤拷锟�
 		}
 	}
 	
