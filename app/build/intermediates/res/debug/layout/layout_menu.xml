@@ -1,0 +1,88 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:circle="http://schemas.android.com/apk/res/com.luckysun.electorch"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
+
+    <com.luckysun.electorch.menu.CircleLayout
+        android:id="@+id/main_circle_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/main_selected_textView"
+        android:layout_gravity="center_horizontal"
+        circle:firstChildPosition="South"
+        circle:isRotating="true"
+        circle:rotateToCenter="true" >
+
+        <com.luckysun.electorch.menu.CircleImageView
+            android:id="@+id/main_google_image"
+            circle:name="@string/miui"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/shou_off" />
+
+        <com.luckysun.electorch.menu.CircleImageView
+            android:id="@+id/main_myspace_image"
+            circle:name="@string/iphone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/device2" />
+
+        <com.luckysun.electorch.menu.CircleImageView
+            android:id="@+id/main_facebook_image"
+            circle:name="@string/light"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/bg" />
+
+        <com.luckysun.electorch.menu.CircleImageView
+            android:id="@+id/main_linkedin_image"
+            circle:name="@string/miuiv5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/preview6" />
+        <!--
+        <com.luckysun.electorch.menu.CircleImageView
+            android:id="@+id/main_twitter_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_twitter"
+            circle:name="@string/twitter" />
+
+        <com.luckysun.electorch.menu.CircleImageView
+            android:id="@+id/main_wordpress_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_wordpress"
+            circle:name="@string/wordpress" / 
+        -->
+    </com.luckysun.electorch.menu.CircleLayout>
+
+    <TextView
+        android:id="@+id/main_selected_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/btn_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dip"
+        android:background="@drawable/menu" />
+
+    <RelativeLayout
+        android:id="@+id/adcontainer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center" >
+    </RelativeLayout>
+
+</RelativeLayout><!-- From: file:/Users/liyang/work/GitHub/ElecTorch/app/src/main/res/layout/layout_menu.xml -->

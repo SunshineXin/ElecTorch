@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">闪光灯手电筒</string>
+    <string name="again_exit">再按一次退出</string>
+    
+    <string name="light">Light</string>
+    <string name="twitter">Twitter</string>
+    <string name="miui">MIUI V4</string>
+    <string name="miuiv5">MIUI V5</string>
+    <string name="wordpress">Wordpress</string>
+    <string name="iphone">Iphone</string>
+     <string name="change_theme">Change to</string>
+</resources>

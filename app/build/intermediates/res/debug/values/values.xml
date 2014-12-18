@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/liyang/work/GitHub/ElecTorch/app/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="transparent"> #9000 </color>
+    <declare-styleable name="Circle"><attr format="integer" name="circleBackground"/><attr name="firstChildPosition"><enum name="East" value="0"/><enum name="South" value="90"/><enum name="West" value="180"/><enum name="North" value="270"/></attr><attr format="boolean" name="rotateToCenter"/><attr format="boolean" name="isRotating"/></declare-styleable>
+    <declare-styleable name="CircleImageView"><attr format="string" name="name"/></declare-styleable>
+    <!-- From: file:/Users/liyang/work/GitHub/ElecTorch/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="again_exit">Press again to exit</string>
+    <string name="app_name">FlashLight</string>
+    <string name="change_theme">Change to</string>
+    <string name="iphone">Iphone</string>
+    <string name="light">Light</string>
+    <string name="miui">MIUI V4</string>
+    <string name="miuiv5">MIUI V5</string>
+    <string name="twitter">Twitter</string>
+    <string name="wordpress">Wordpress</string>
+    <!-- From: file:/Users/liyang/work/GitHub/ElecTorch/app/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <style name="Transparent"> 
+        <item name="android:windowBackground">@color/transparent</item> 
+        <item name="android:windowIsTranslucent">true</item>    
+        <item name="android:windowAnimationStyle">@+android:style/Animation.Translucent</item> 
+    </style>
+</resources>
